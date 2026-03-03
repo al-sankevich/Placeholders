@@ -2,7 +2,7 @@ package al.sankevich.benchmark;
 
 import al.sankevich.benchmark.core.benchmark.JsonAbstractBenchmark;
 import al.sankevich.benchmark.core.engine.DefaultEngineProvider;
-import al.sankevich.benchmark.core.values.json.JsonDefaultValuesProvider;
+import al.sankevich.benchmark.core.values.wrappable.json.JsonDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 

@@ -1,6 +1,6 @@
-package al.sankevich.benchmark.core.values.sql;
+package al.sankevich.benchmark.core.values.wrappable.sql;
 
-import al.sankevich.benchmark.core.values.WrappableDefaultValuesProvider;
+import al.sankevich.benchmark.core.values.wrappable.WrappableDefaultValuesProvider;
 
 public interface SqlDefaultValuesProvider extends WrappableDefaultValuesProvider {
 

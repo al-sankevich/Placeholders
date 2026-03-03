@@ -2,7 +2,7 @@ package al.sankevich.benchmark;
 
 import al.sankevich.benchmark.core.benchmark.SqlAbstractBenchmark;
 import al.sankevich.benchmark.core.engine.DefaultEngineProvider;
-import al.sankevich.benchmark.core.values.sql.SqlDefaultValuesProvider;
+import al.sankevich.benchmark.core.values.wrappable.sql.SqlDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 

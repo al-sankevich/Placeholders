@@ -1,6 +1,6 @@
-package al.sankevich.benchmark.core.values.json;
+package al.sankevich.benchmark.core.values.wrappable.json;
 
-import al.sankevich.benchmark.core.values.WrappableDefaultValuesProvider;
+import al.sankevich.benchmark.core.values.wrappable.WrappableDefaultValuesProvider;
 
 public interface JsonDefaultValuesProvider extends WrappableDefaultValuesProvider {
 

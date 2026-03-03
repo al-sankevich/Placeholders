@@ -1,4 +1,6 @@
-package al.sankevich.benchmark.core.values;
+package al.sankevich.benchmark.core.values.wrappable;
+
+import al.sankevich.benchmark.core.values.ValuesProvider;
 
 import java.util.function.Supplier;
 
