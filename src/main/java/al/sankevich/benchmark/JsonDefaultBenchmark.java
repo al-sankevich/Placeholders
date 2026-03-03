@@ -1,13 +1,13 @@
 package al.sankevich.benchmark;
 
 import al.sankevich.benchmark.core.benchmark.JsonAbstractBenchmark;
-import al.sankevich.benchmark.core.engine.DefaultEngineSupport;
-import al.sankevich.benchmark.core.func.json.JsonDefaultFuncSupport;
+import al.sankevich.benchmark.core.engine.DefaultEngineProvider;
+import al.sankevich.benchmark.core.values.json.JsonDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 
 public class JsonDefaultBenchmark extends JsonAbstractBenchmark
-        implements JsonDefaultFuncSupport, DefaultEngineSupport {
+        implements JsonDefaultValuesProvider, DefaultEngineProvider {
 
     public JsonDefaultBenchmark() {
         super("test-default.json");

@@ -1,7 +1,7 @@
 package al.sankevich.benchmark.core.benchmark;
 
-import al.sankevich.benchmark.core.engine.EngineSupport;
-import al.sankevich.benchmark.core.func.FuncSupport;
+import al.sankevich.benchmark.core.engine.EngineProvider;
+import al.sankevich.benchmark.core.values.ValuesProvider;
 import al.sankevich.placeholders.contenttypes.ContentType;
 import al.sankevich.placeholders.engines.source.SourceProcessingEngine;
 import lombok.RequiredArgsConstructor;
@@ -23,18 +23,16 @@ import org.openjdk.jmh.infra.Blackhole;
 import java.io.InputStream;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 @State(Scope.Benchmark)
 @RequiredArgsConstructor
-public abstract class AbstractBenchmark implements FuncSupport, EngineSupport {
+public abstract class AbstractBenchmark implements ValuesProvider, EngineProvider {
 
     private final ContentType type;
     private final String file;
 
     private String content;
     private SourceProcessingEngine processingEngine;
-    private Function<String, Object> func;
 
     @Setup
     @SneakyThrows
@@ -43,7 +41,6 @@ public abstract class AbstractBenchmark implements FuncSupport, EngineSupport {
             content = new String(Objects.requireNonNull(is).readAllBytes());
         }
 
-        func = getFunc();
         processingEngine = getEngine();
     }
 
@@ -56,7 +53,7 @@ public abstract class AbstractBenchmark implements FuncSupport, EngineSupport {
     @Fork(5)
     @Threads(1)
     public void check(Blackhole blackhole) {
-        String result = processingEngine.process(content, type, func);
+        String result = processingEngine.process(content, type, this);
         blackhole.consume(result);
     }
 }

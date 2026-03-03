@@ -1,13 +1,12 @@
 package al.sankevich.benchmark;
 
 import al.sankevich.benchmark.core.benchmark.SqlAbstractBenchmark;
-import al.sankevich.benchmark.core.engine.DefaultEngineSupport;
-import al.sankevich.benchmark.core.func.sql.SqlDefaultFuncSupport;
+import al.sankevich.benchmark.core.engine.DefaultEngineProvider;
+import al.sankevich.benchmark.core.values.sql.SqlDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 
-public class SqlDefaultBenchmark extends SqlAbstractBenchmark
-        implements SqlDefaultFuncSupport, DefaultEngineSupport {
+public class SqlDefaultBenchmark extends SqlAbstractBenchmark implements SqlDefaultValuesProvider, DefaultEngineProvider {
 
     public SqlDefaultBenchmark() {
         super("test-default.sql");

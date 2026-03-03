@@ -4,7 +4,7 @@ import al.sankevich.placeholders.constants.ConfigConstants;
 import al.sankevich.placeholders.engines.source.SourceProcessingEngine;
 import al.sankevich.placeholders.engines.source.ext.impl.DefaultSourceProcessingEngine;
 
-public interface DefaultEngineSupport extends EngineSupport {
+public interface DefaultEngineProvider extends EngineProvider {
 
     @Override
     default SourceProcessingEngine getEngine() {
