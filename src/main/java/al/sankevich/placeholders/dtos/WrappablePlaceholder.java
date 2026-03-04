@@ -1,6 +1,7 @@
 package al.sankevich.placeholders.dtos;
 
 import lombok.Getter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.Set;
  * Represents the parsed {@code placeholder}, which can be wrapped with single character from both sides.
  */
 @Getter
+@SuperBuilder
 public class WrappablePlaceholder extends Placeholder {
 
     /**

@@ -1,8 +1,9 @@
 package al.sankevich.placeholders.dtos;
 
-import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.Set;
  * Represents the parsed {@code placeholder} and contains it's main info.
  */
 @Getter
-@Builder
+@SuperBuilder
+@EqualsAndHashCode
 @RequiredArgsConstructor
 public class Placeholder {
 
