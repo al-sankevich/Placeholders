@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
     <configuration default="false" name="JsonDefaultBenchmark" type="Application" factoryName="Application"
                    nameIsGenerated="true">
-        <option name="MAIN_CLASS_NAME" value="al.sankevich.benchmark.JsonDefaultBenchmark"/>
+        <option name="MAIN_CLASS_NAME" value="al.sankevich.benchmark.JsonAvgBenchmark"/>
         <module name="Placeholders"/>
         <extension name="coverage">
             <pattern>

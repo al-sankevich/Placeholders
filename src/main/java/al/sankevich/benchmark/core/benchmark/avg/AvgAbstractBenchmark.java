@@ -1,4 +1,4 @@
-package al.sankevich.benchmark.core.benchmark;
+package al.sankevich.benchmark.core.benchmark.avg;
 
 import al.sankevich.benchmark.core.engine.EngineProvider;
 import al.sankevich.benchmark.core.utils.FileUtils;
@@ -24,7 +24,7 @@ import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
 @RequiredArgsConstructor
-public abstract class AbstractBenchmark implements ValuesProvider, EngineProvider {
+public abstract class AvgAbstractBenchmark implements ValuesProvider, EngineProvider {
 
     private final ContentType type;
     private final String filename;

@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
     <configuration default="false" name="SqlDefaultBenchmark" type="Application" factoryName="Application">
-        <option name="MAIN_CLASS_NAME" value="al.sankevich.benchmark.SqlDefaultBenchmark"/>
+        <option name="MAIN_CLASS_NAME" value="al.sankevich.benchmark.SqlAvgBenchmark"/>
         <module name="Placeholders"/>
         <extension name="coverage">
             <pattern>

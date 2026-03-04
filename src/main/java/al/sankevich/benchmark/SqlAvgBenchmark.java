@@ -1,14 +1,14 @@
 package al.sankevich.benchmark;
 
-import al.sankevich.benchmark.core.benchmark.SqlAbstractBenchmark;
-import al.sankevich.benchmark.core.engine.DefaultEngineProvider;
+import al.sankevich.benchmark.core.benchmark.avg.ext.SqlAvgAbstractBenchmark;
+import al.sankevich.benchmark.core.engine.ext.DefaultEngineProvider;
 import al.sankevich.benchmark.core.values.wrappable.sql.SqlDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 
-public class SqlDefaultBenchmark extends SqlAbstractBenchmark implements SqlDefaultValuesProvider, DefaultEngineProvider {
+public class SqlAvgBenchmark extends SqlAvgAbstractBenchmark implements SqlDefaultValuesProvider, DefaultEngineProvider {
 
-    public SqlDefaultBenchmark() {
+    public SqlAvgBenchmark() {
         super("test-default.sql");
     }
 

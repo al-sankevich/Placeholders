@@ -1,5 +1,6 @@
-package al.sankevich.benchmark.core.engine;
+package al.sankevich.benchmark.core.engine.ext;
 
+import al.sankevich.benchmark.core.engine.EngineProvider;
 import al.sankevich.placeholders.constants.ConfigConstants;
 import al.sankevich.placeholders.engines.source.SourceProcessingEngine;
 import al.sankevich.placeholders.engines.source.ext.impl.DefaultSourceProcessingEngine;
