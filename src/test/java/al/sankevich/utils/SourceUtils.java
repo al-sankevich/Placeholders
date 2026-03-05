@@ -40,6 +40,12 @@ public class SourceUtils {
             }
             """;
 
+    public static final String SOURCE_WITH_ESCAPED_RESERVED_CHARS = """
+            {
+                "key": "${placeholder^^^}^::f1^^^}^=^,^:=v1^^^}^,^::v1^^^}^,^:}"
+            }
+            """;
+
     // incorrect
     public static final String SOURCE_WITHOUT_PLACEHOLDER_NAME = """
             {

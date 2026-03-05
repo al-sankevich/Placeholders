@@ -36,6 +36,7 @@ import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMAT;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMATS;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMATS_WITH_VALUES;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMAT_WITH_VALUE;
+import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_RESERVED_CHARS;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_DISABLED_FORMAT_NAME;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_NAME;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_VALUE;
@@ -54,7 +55,8 @@ public class ParserArgumentsProvider {
                         PlaceholderUtils.Plain.build(List.of(F1_V, F2_V))
                 ),
                 Arguments.of(SOURCE_WITH_DISABLED_FORMAT, PlaceholderUtils.Plain.build(F1[0])),
-                Arguments.of(SOURCE_WITH_DISABLED_FORMATS, PlaceholderUtils.Plain.build(Set.of(F1[0], F2[0])))
+                Arguments.of(SOURCE_WITH_DISABLED_FORMATS, PlaceholderUtils.Plain.build(Set.of(F1[0], F2[0]))),
+                Arguments.of(SOURCE_WITH_ESCAPED_RESERVED_CHARS, PlaceholderUtils.Plain.buildEscaped())
         );
     }
 

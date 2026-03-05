@@ -7,11 +7,14 @@ import al.sankevich.placeholders.dtos.WrappablePlaceholder;
 import java.util.List;
 import java.util.Set;
 
+import static al.sankevich.utils.FormatUtils.F1_V_ESCAPED;
+
 public class PlaceholderUtils {
 
     private static final int defaultStartIndex = 14;
     private static final int defaultEndIndex = 27;
     private static final String defaultPlaceholderName = "placeholder";
+    private static final String defaultEscapedPlaceholderName = "placeholder^}:";
 
     private static int countEnabledFormatsLength(final List<String[]> enabledFormats) {
         if (enabledFormats != null && !enabledFormats.isEmpty()) {
@@ -73,6 +76,15 @@ public class PlaceholderUtils {
     }
 
     public static class Plain {
+
+        public static Placeholder buildEscaped() {
+            return Placeholder.builder()
+                    .name(defaultEscapedPlaceholderName)
+                    .enabledFormats(List.<String[]>of(F1_V_ESCAPED))
+                    .disabledFormats(Set.of(F1_V_ESCAPED[1]))
+                    .position(Position.of(14, 68))
+                    .build();
+        }
 
         public static Placeholder build() {
             return builder().build();
