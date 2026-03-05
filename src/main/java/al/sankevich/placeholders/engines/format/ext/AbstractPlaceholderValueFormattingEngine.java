@@ -20,8 +20,11 @@ public abstract class AbstractPlaceholderValueFormattingEngine implements Placeh
     ) {
         Set<String> disabledFormats = placeholder.getDisabledFormats();
 
-        if (placeholder.getEnabledFormats().isEmpty() &&
-                disabledFormats.size() == 1 && disabledFormats.contains(FormatingConstants.NO_WRAP)) {
+        if (value == null || (
+                placeholder.getEnabledFormats().isEmpty() &&
+                        disabledFormats.size() == 1 &&
+                        disabledFormats.contains(FormatingConstants.NO_WRAP)
+        )) {
             return value;
         }
 

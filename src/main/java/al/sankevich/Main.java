@@ -148,36 +148,60 @@ public class Main {
 
     static class SimpleList {
         public static void main(String[] args) {
-            List<Object> list = new ArrayList<>(List.of("not_placeholder", "${placeholder}", 5));
+            List<Object> list = new ArrayList<>(List.of(
+                    "not_placeholder",
+                    "${placeholder}",
+                    5
+            ));
             process(list);
         }
     }
 
     static class ListWithNull {
         public static void main(String[] args) {
-            List<Object> list = new ArrayList<>(List.of("not_placeholder", "${null_placeholder}", 5));
+            List<Object> list = new ArrayList<>(List.of(
+                    "not_placeholder",
+                    "${null_placeholder}",
+                    5
+            ));
             process(list);
         }
     }
 
     static class InnerList {
         public static void main(String[] args) {
-            List<Object> innerList = new ArrayList<>(List.of("not_placeholder", "${placeholder}", 5));
-            List<Object> list = new ArrayList<>(List.of("${another_placeholder}", innerList, true));
+            List<Object> innerList = new ArrayList<>(List.of(
+                    "not_placeholder",
+                    "${placeholder}",
+                    5
+            ));
+            List<Object> list = new ArrayList<>(List.of(
+                    "${another_placeholder}",
+                    innerList,
+                    true
+            ));
             process(list);
         }
     }
 
     static class ListWithComplexPlaceholder {
         public static void main(String[] args) {
-            List<Object> list = new ArrayList<>(List.of("not_placeholder", "${complex_placeholder}", 5));
+            List<Object> list = new ArrayList<>(List.of(
+                    "not_placeholder",
+                    "${complex_placeholder}",
+                    5
+            ));
             process(list);
         }
     }
 
     static class ListWithFormattedComplexPlaceholder {
         public static void main(String[] args) {
-            List<Object> list = new ArrayList<>(List.of("not_placeholder", "${complex_placeholder::nw}", 5));
+            List<Object> list = new ArrayList<>(List.of(
+                    "not_placeholder",
+                    "${complex_placeholder::nw}",
+                    5
+            ));
             process(list);
         }
     }
@@ -197,7 +221,7 @@ public class Main {
         public static void main(String[] args) {
             Map<String, Object> map = new HashMap<>(Map.of(
                     "key1", "not_placeholder",
-                    "key2", "${placeholder_null}",
+                    "key2", "${null_placeholder}",
                     "key3", 5
             ));
             process(map);
@@ -245,7 +269,7 @@ public class Main {
     static class MapWithList {
         public static void main(String[] args) {
             List<Object> innerList = new ArrayList<>(List.of(
-                    "${null_placeholder}",
+                    "${another_placeholder}",
                     "${complex_placeholder::nw}",
                     5
             ));
@@ -254,7 +278,7 @@ public class Main {
                     "key2", "${complex_placeholder}",
                     "key3", innerList
             ));
-            List<Object> list = new ArrayList<>(List.of("${null_placeholder::nw}", innerMap, true));
+            List<Object> list = new ArrayList<>(List.of("${null_placeholder}", innerMap, true));
             Map<String, Object> map = new HashMap<>(Map.of(
                     "key1", "not_placeholder",
                     "key2", "${placeholder}",
