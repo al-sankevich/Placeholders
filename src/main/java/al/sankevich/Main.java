@@ -9,7 +9,6 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +27,6 @@ public class Main {
             ConfigConstants.DEFAULT_PLACEHOLDERS_PROCESSING_CONFIGURATION
     );
     private static final ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
     private static final StringBuilder sb = new StringBuilder();
     private static final ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private static final Function<String, Object> func = placeholder -> {
@@ -46,7 +44,8 @@ public class Main {
 
     };
 
-    private static void process(final String fileName, final ContentType type) throws IOException {
+    @SneakyThrows
+    private static void process(final String fileName, final ContentType type) {
         log.info("Processing file {}", fileName);
         try (InputStream is = classloader.getResourceAsStream(fileName)) {
             String content = new String(Objects.requireNonNull(is).readAllBytes());
@@ -73,75 +72,75 @@ public class Main {
     }
 
     static class DefaultJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-default.json", JSON);
         }
     }
 
     static class CachedJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-default.json", JSON);
             process("test-default.json", JSON);
         }
     }
 
     static class NullJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-null.json", JSON);
         }
     }
 
     static class FormattedJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-formatted.json", JSON);
         }
     }
 
     static class StringPartJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-string-part.json", JSON);
         }
     }
 
     static class ArrayJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-array.json", JSON);
         }
     }
 
     static class FormattedArrayJson {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-array-formatted.json", JSON);
         }
     }
 
     static class DefaultSql {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-default.sql", SQL);
         }
     }
 
     static class CachedSql {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-default.sql", SQL);
             process("test-default.sql", SQL);
         }
     }
 
     static class NullSql {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-null.sql", SQL);
         }
     }
 
     static class FormattedSql {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-formatted.sql", SQL);
         }
     }
 
     static class StringPartSql {
-        public static void main(String[] args) throws IOException {
+        public static void main(String[] args) {
             process("test-string-part.sql", SQL);
         }
     }
@@ -278,7 +277,11 @@ public class Main {
                     "key2", "${complex_placeholder}",
                     "key3", innerList
             ));
-            List<Object> list = new ArrayList<>(List.of("${null_placeholder}", innerMap, true));
+            List<Object> list = new ArrayList<>(List.of(
+                    "${null_placeholder}",
+                    innerMap,
+                    true
+            ));
             Map<String, Object> map = new HashMap<>(Map.of(
                     "key1", "not_placeholder",
                     "key2", "${placeholder}",
