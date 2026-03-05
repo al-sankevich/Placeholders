@@ -1,1 +1,3 @@
-SELECT * FROM test WHERE 'test' = '${placeholder_null}';
+SELECT *
+FROM test
+WHERE 'test' = '${null_placeholder}';

@@ -9,8 +9,6 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.function.Function;
 
-import static al.sankevich.placeholders.contenttypes.impl.DefaultContentTypes.PLAIN;
-
 /**
  * General implementation of {@link SourceProcessingEngine} for some methods.
  */
@@ -22,7 +20,7 @@ public abstract class AbstractSourceProcessingEngine implements SourceProcessing
             final Function<String, Object> valuesProvider,
             final String... skippablePlaceholders
     ) {
-        return process(List.of(source), valuesProvider, skippablePlaceholders).get(0);
+        return process(List.of(source), valuesProvider, skippablePlaceholders).getFirst();
     }
 
     @Override
@@ -58,8 +56,8 @@ public abstract class AbstractSourceProcessingEngine implements SourceProcessing
                 Object childValue = iterator.next();
 
                 if (childValue instanceof String s) {
-                    String replacement = process(s, PLAIN, valuesProvider, skippablePlaceholders);
-                    iterator.set(replacement);
+                    childValue = process(s, valuesProvider, skippablePlaceholders);
+                    iterator.set(childValue);
                     continue;
                 }
 

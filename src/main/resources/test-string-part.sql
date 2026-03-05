@@ -1,1 +1,3 @@
-SELECT * FROM test WHERE 'test' = '''${placeholder}''';
+SELECT *
+FROM test
+WHERE 'test' = 'string-${placeholder}-part';

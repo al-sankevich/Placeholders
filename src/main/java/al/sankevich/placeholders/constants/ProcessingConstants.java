@@ -1,6 +1,6 @@
 package al.sankevich.placeholders.constants;
 
-import tools.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Contains constants for {@code processing} needs.

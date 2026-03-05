@@ -1,4 +1,4 @@
 {
   "key": "value",
-  "key1": "${placeholder_null}"
+  "key1": "${null_placeholder}"
 }
