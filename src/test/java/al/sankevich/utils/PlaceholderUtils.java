@@ -13,6 +13,8 @@ public class PlaceholderUtils {
 
     private static final int defaultStartIndex = 14;
     private static final int defaultEndIndex = 27;
+    private static final int defaultEscapedEndIndex = 68;
+
     private static final String defaultPlaceholderName = "placeholder";
     private static final String defaultEscapedPlaceholderName = "placeholder^}:";
 
@@ -121,11 +123,15 @@ public class PlaceholderUtils {
                     .name(defaultPlaceholderName)
                     .enabledFormats(List.of())
                     .disabledFormats(Set.of())
-                    .position(Position.of(defaultStartIndex, 27));
+                    .position(Position.of(defaultStartIndex, defaultEndIndex));
         }
     }
 
     public static class Wrappable {
+
+        public static WrappablePlaceholder buildEscaped(final char wrapper, final boolean isWrapped) {
+            return builderEscaped(wrapper, isWrapped).build();
+        }
 
         public static WrappablePlaceholder build(final char wrapper, final boolean isWrapped) {
             return builder(wrapper, isWrapped).build();
@@ -192,6 +198,18 @@ public class PlaceholderUtils {
                     .position(getPosition(isWrapped, defaultStartIndex, defaultEndIndex));
         }
 
+        public static WrappablePlaceholder.WrappablePlaceholderBuilder<?, ?> builderEscaped(
+                final char wrapper,
+                final boolean isWrapped
+        ) {
+            return WrappablePlaceholder.builder()
+                    .name(defaultEscapedPlaceholderName)
+                    .enabledFormats(List.<String[]>of(F1_V_ESCAPED))
+                    .disabledFormats(Set.of(F1_V_ESCAPED[1]))
+                    .wrapper(wrapper)
+                    .position(getPosition(isWrapped, defaultStartIndex, defaultEscapedEndIndex));
+        }
+
         public static Position getPosition(final boolean isWrapped, final int startIndex, final int endIndex) {
             return Position.of(isWrapped ? startIndex - 1 : startIndex, isWrapped ? endIndex + 1 : endIndex);
         }
@@ -199,6 +217,10 @@ public class PlaceholderUtils {
         public static class Json {
 
             private static final char wrapper = '"';
+
+            public static WrappablePlaceholder buildEscaped(final boolean isWrapped) {
+                return Wrappable.buildEscaped(wrapper, isWrapped);
+            }
 
             public static WrappablePlaceholder build(final boolean isWrapped) {
                 return Wrappable.build(wrapper, isWrapped);

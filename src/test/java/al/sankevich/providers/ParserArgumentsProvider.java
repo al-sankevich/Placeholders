@@ -83,6 +83,10 @@ public class ParserArgumentsProvider {
                 Arguments.of(
                         SOURCE_WITH_DISABLED_FORMATS,
                         PlaceholderUtils.Wrappable.Json.build(true, Set.of(F1[0], F2[0]))
+                ),
+                Arguments.of(
+                        SOURCE_WITH_ESCAPED_RESERVED_CHARS,
+                        PlaceholderUtils.Wrappable.Json.buildEscaped(true)
                 )
         );
     }
