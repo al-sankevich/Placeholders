@@ -1,16 +1,19 @@
-package al.sankevich.placeholders.parsers;
+package al.sankevich.parsers;
 
 import al.sankevich.placeholders.dtos.Placeholder;
 import al.sankevich.placeholders.dtos.WrappablePlaceholder;
+import al.sankevich.placeholders.exceptions.PlaceholderParsingException;
+import al.sankevich.placeholders.parsers.PlaceholderParser;
 import al.sankevich.placeholders.parsers.impl.ext.PlainPlaceholdersParser;
 import al.sankevich.placeholders.parsers.impl.ext.WrappablePlaceholdersParser;
 import al.sankevich.utils.AssertUtils;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
-class PlainPlaceholdersParserTest {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-    private PlaceholderParser<?> parser;
+class PlaceholdersParserTest {
 
     @ParameterizedTest
     @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#providePlainCorrect"})
@@ -26,6 +29,24 @@ class PlainPlaceholdersParserTest {
         PlaceholderParser<WrappablePlaceholder> parser = setUpJson(source);
 
         AssertUtils.assertEquals(expected, parser.parse());
+    }
+
+    @ParameterizedTest
+    @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#provideIncorrect"})
+    public void plainParserTest_Fail(final String source, final String expected) {
+        PlaceholderParser<Placeholder> parser = setUpPlain(source);
+
+        PlaceholderParsingException e = assertThrows(PlaceholderParsingException.class, parser::parse);
+        assertEquals(expected, e.getMessage());
+    }
+
+    @ParameterizedTest
+    @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#provideIncorrect"})
+    public void jsonParserTest_Fail(final String source, final String expected) {
+        PlaceholderParser<WrappablePlaceholder> parser = setUpJson(source);
+
+        PlaceholderParsingException e = assertThrows(PlaceholderParsingException.class, parser::parse);
+        assertEquals(expected, e.getMessage());
     }
 
     private PlaceholderParser<Placeholder> setUpPlain(final String source) {

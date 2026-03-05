@@ -1,14 +1,16 @@
 package al.sankevich.placeholders.parsers.impl;
 
 import al.sankevich.placeholders.dtos.Component;
+import al.sankevich.placeholders.dtos.ExceptionInfo;
 import al.sankevich.placeholders.dtos.Placeholder;
 import al.sankevich.placeholders.engines.string.StringEngine;
 import al.sankevich.placeholders.engines.string.impl.DefaultStringEngine;
+import al.sankevich.placeholders.exceptions.EmptyComponentException;
+import al.sankevich.placeholders.exceptions.NotReservedCharacterEscapedException;
 import al.sankevich.placeholders.parsers.PlaceholderParser;
 import lombok.SneakyThrows;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,13 +19,13 @@ import static al.sankevich.placeholders.constants.ParsingConstants.DISABLED_FORM
 import static al.sankevich.placeholders.constants.ParsingConstants.ENABLED_FORMAT_NAME_COMPONENT;
 import static al.sankevich.placeholders.constants.ParsingConstants.ENABLED_FORMAT_VALUE_COMPONENT;
 import static al.sankevich.placeholders.constants.ParsingConstants.ESCAPING_SYMBOL;
+import static al.sankevich.placeholders.constants.ParsingConstants.FORMATS_SEPARATING_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.FORMAT_SEPARATING_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_LEFT_BORDER_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_NAME_COMPONENT;
 import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_RIGHT_BORDER_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_STARTING_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.SECTIONS_SEPARATING_SYMBOL;
-import static al.sankevich.placeholders.utils.ExceptionUtils.formatExceptionMessage;
 
 /**
  * General implementation of {@link PlaceholderParser}.
@@ -52,8 +54,7 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
 
                 startIndex = i;
 
-                i += 2; // skips ${
-                j = i + 1; // places j-pointer right after i-pointer
+                j = i += 2; // skips ${
 
                 searchPlaceholderOrFileEnd(); // places j-pointer at placeholder or file end
 
@@ -128,7 +129,7 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
     }
 
     private List<String[]> searchEnabledFormats() {
-        if (i < j && charAt(i) == SECTIONS_SEPARATING_SYMBOL) { // skips empty section
+        if (isSectionSkippable()) {
             ++i;
             return List.of();
         }
@@ -143,13 +144,15 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
             }
         }
 
+        checkIfEndedWithComma(ENABLED_FORMAT_NAME_COMPONENT);
+
         return formats;
     }
 
     private Set<String> searchDisabledFormats() {
         Set<String> formats = new HashSet<>();
 
-        if (i < j && charAt(i) == SECTIONS_SEPARATING_SYMBOL) {
+        if (isSectionSkippable()) {
             ++i;
             return formats;
         }
@@ -159,7 +162,19 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
             ++i;
         }
 
+        checkIfEndedWithComma(DISABLED_FORMAT_NAME_COMPONENT);
+
         return formats;
+    }
+
+    private boolean isSectionSkippable() {
+        return i < j && charAt(i) == SECTIONS_SEPARATING_SYMBOL;
+    }
+
+    private void checkIfEndedWithComma(final Component component) {
+        if (source.charAt(i - 1) == FORMATS_SEPARATING_SYMBOL) {
+            throw emptyComponentException(component);
+        }
     }
 
     private String[] searchEnabledFormat() {
@@ -232,22 +247,13 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
 
     private void verifyIsNotEmpty(final Component component, final String value) {
         if (value.isEmpty()) {
-            throw new IllegalStateException(
-                    formatExceptionMessage(
-                            component.name(), "is empty", source.toCharArray(), i, startIndex, endIndex));
+            throw emptyComponentException(component);
         }
     }
 
     private void assertIsNextReserved(final Component component) {
         if (isNotReserved(i + 1, component)) {
-            throw new IllegalStateException(
-                    formatExceptionMessage(
-                            component.name(),
-                            "contains escaped not reserved character (reserved: %s)"
-                                    .formatted(Arrays.toString(component.endingChars())), source.toCharArray(), i + 1,
-                            startIndex,
-                            endIndex
-                    ));
+            throw notReservedCharacterEscapedException(component);
         }
     }
 
@@ -257,5 +263,17 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
 
     private int length() {
         return source.length();
+    }
+
+    private EmptyComponentException emptyComponentException(final Component component) {
+        return EmptyComponentException.of(exceptionInfo(component));
+    }
+
+    private NotReservedCharacterEscapedException notReservedCharacterEscapedException(final Component component) {
+        return NotReservedCharacterEscapedException.of(exceptionInfo(component));
+    }
+
+    private ExceptionInfo exceptionInfo(final Component component) {
+        return new ExceptionInfo(component, source, i, startIndex, endIndex);
     }
 }

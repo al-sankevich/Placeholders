@@ -1,30 +1,61 @@
 package al.sankevich.placeholders.utils;
 
+import al.sankevich.placeholders.dtos.Component;
+import al.sankevich.placeholders.dtos.ExceptionInfo;
+
+import java.util.Arrays;
+
 public class ExceptionUtils {
 
     private static final int WINDOW_WIDTH = 40;
     private static final String THREE_DOTS = "...";
 
-    public static String formatExceptionMessage(
-            final String component,
-            final String message,
-            final char[] source,
-            final int i,
-            final int startIndex,
-            final int endIndex
-    ) {
-        String firstPart = getFirstPart(source, i, startIndex);
-        String secondPart = getSecondPart(source, i, endIndex);
-        return "%s %s (placeholder position in source is %d)\n%s<<ERROR>>%s ".formatted(
-                component,
-                message,
-                startIndex,
-                firstPart,
-                secondPart
+    public static String formatNotReservedCharacterEscapedExceptionMessage(final ExceptionInfo info) {
+        Component component = info.component();
+        return formatExceptionMessage(
+                component.name(),
+                "contains escaped not reserved character (reserved: %s)".formatted(
+                        Arrays.toString(component.endingChars())
+                ),
+                info.source(),
+                info.i() + 1,
+                info.startIndex(),
+                info.endIndex()
         );
     }
 
-    private static String getFirstPart(final char[] source, final int i, final int startIndex) {
+    public static String formatEmptyComponentExceptionMessage(final ExceptionInfo info) {
+        return formatExceptionMessage(
+                info.component().name(),
+                "is empty",
+                info.source(),
+                info.i(),
+                info.startIndex(),
+                info.endIndex()
+        );
+    }
+
+    public static String formatExceptionMessage(
+            final String component,
+            final String reason,
+            final String source,
+            final int pivot,
+            final int startIndex,
+            final int endIndex
+    ) {
+        char[] sourceChars = source.toCharArray();
+        String left = getLeft(sourceChars, pivot, startIndex);
+        String right = getRight(sourceChars, pivot, endIndex);
+        return "%s %s (placeholder position in source is %d)\n%s<<ERROR>>%s".formatted(
+                component,
+                reason,
+                startIndex,
+                left,
+                right
+        );
+    }
+
+    private static String getLeft(final char[] source, final int i, final int startIndex) {
         int windowStartIndex = startIndex < WINDOW_WIDTH ? 0 : startIndex - WINDOW_WIDTH;
         int length = i - windowStartIndex;
 
@@ -38,7 +69,7 @@ public class ExceptionUtils {
         }
     }
 
-    private static String getSecondPart(final char[] source, final int i, final int endIndex) {
+    private static String getRight(final char[] source, final int i, final int endIndex) {
         int lastIndex = source.length - 1;
         int windowEndIndex = endIndex < lastIndex - WINDOW_WIDTH ? endIndex + WINDOW_WIDTH : lastIndex;
         int length = windowEndIndex - i + 1;

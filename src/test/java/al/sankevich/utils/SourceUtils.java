@@ -2,6 +2,7 @@ package al.sankevich.utils;
 
 public class SourceUtils {
 
+    // correct
     public static final String SIMPLE_SOURCE = """
             {
                 "key": "${placeholder}"
@@ -36,6 +37,49 @@ public class SourceUtils {
     public static final String SOURCE_WITH_DISABLED_FORMATS = """
             {
                 "key": "${placeholder::f1,f2}"
+            }
+            """;
+
+    // incorrect
+    public static final String SOURCE_WITHOUT_PLACEHOLDER_NAME = """
+            {
+                "key": "${}"
+            }
+            """;
+
+    public static final String SOURCE_WITHOUT_ENABLED_FORMAT_NAME_BEFORE_VALUE = """
+            {
+                "key": "${placeholder:=v1}"
+            }
+            """;
+
+    public static final String SOURCE_WITHOUT_ENABLED_FORMAT_VALUE_AFTER_NAME = """
+            {
+                "key": "${placeholder:f1=}"
+            }
+            """;
+
+    public static final String SOURCE_WITHOUT_ENABLED_FORMAT_NAME_BEFORE_COMMA = """
+            {
+                "key": "${placeholder:,f2}"
+            }
+            """;
+
+    public static final String SOURCE_WITHOUT_ENABLED_FORMAT_NAME_AFTER_COMMA = """
+            {
+                "key": "${placeholder:f1,}"
+            }
+            """;
+
+    public static final String SOURCE_WITHOUT_DISABLED_FORMAT_NAME_BEFORE_COMMA = """
+            {
+                "key": "${placeholder::,f2}"
+            }
+            """;
+
+    public static final String SOURCE_WITHOUT_DISABLED_FORMAT_NAME_AFTER_COMMA = """
+            {
+                "key": "${placeholder::f1,}"
             }
             """;
 }
