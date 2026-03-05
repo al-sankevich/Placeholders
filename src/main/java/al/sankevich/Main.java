@@ -40,8 +40,8 @@ public class Main {
 
         String str = sb.append('!').append(placeholder).append('!').toString();
         sb.setLength(0);
-        return str;
 
+        return str;
     };
 
     @SneakyThrows

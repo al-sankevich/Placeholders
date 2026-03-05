@@ -28,11 +28,7 @@ class PlaceholdersParserTest {
     public void jsonParserTest_Success(final String source, final WrappablePlaceholder expected) {
         PlaceholderParser<WrappablePlaceholder> parser = setUpJson(source);
 
-        Placeholder parsed = parser.parse();
-
-        System.out.println(parsed);
-
-        AssertUtils.assertEquals(expected, parsed);
+        AssertUtils.assertEquals(expected, parser.parse());
     }
 
     @ParameterizedTest
