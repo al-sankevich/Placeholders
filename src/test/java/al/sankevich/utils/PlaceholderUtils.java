@@ -13,6 +13,7 @@ public class PlaceholderUtils {
 
     private static final int defaultStartIndex = 14;
     private static final int defaultEndIndex = 27;
+    private static final int defaultEscapedStartIndex = 14;
     private static final int defaultEscapedEndIndex = 68;
 
     private static final String defaultPlaceholderName = "placeholder";
@@ -84,7 +85,7 @@ public class PlaceholderUtils {
                     .name(defaultEscapedPlaceholderName)
                     .enabledFormats(List.<String[]>of(F1_V_ESCAPED))
                     .disabledFormats(Set.of(F1_V_ESCAPED[1]))
-                    .position(Position.of(14, 68))
+                    .position(Position.of(defaultEscapedStartIndex, defaultEscapedEndIndex))
                     .build();
         }
 
@@ -129,126 +130,118 @@ public class PlaceholderUtils {
 
     public static class Wrappable {
 
-        public static WrappablePlaceholder buildEscaped(final char wrapper, final boolean isWrapped) {
-            return builderEscaped(wrapper, isWrapped).build();
+        public static WrappablePlaceholder buildEscaped(final char wrapper) {
+            return builderEscaped(wrapper).build();
         }
 
-        public static WrappablePlaceholder build(final char wrapper, final boolean isWrapped) {
-            return builder(wrapper, isWrapped).build();
+        public static WrappablePlaceholder build(final char wrapper) {
+            return builder(wrapper).build();
         }
 
         public static WrappablePlaceholder build(
                 final char wrapper,
-                final boolean isWrapped,
                 final String[] enabledFormat
         ) {
-            return build(wrapper, isWrapped, List.<String[]>of(enabledFormat));
+            return build(wrapper, List.<String[]>of(enabledFormat));
         }
 
         public static WrappablePlaceholder build(
                 final char wrapper,
-                final boolean isWrapped,
                 final List<String[]> enabledFormats
         ) {
             int endIndex = countEndIndex(enabledFormats, null);
-            return builder(wrapper, isWrapped)
+            return builder(wrapper)
                     .enabledFormats(enabledFormats)
-                    .position(getPosition(isWrapped, defaultStartIndex, endIndex))
+                    .position(getPosition(defaultStartIndex, endIndex))
                     .build();
         }
 
         public static WrappablePlaceholder build(
                 final char wrapper,
-                final boolean isWrapped,
                 final String disabledFormat
         ) {
-            return build(wrapper, isWrapped, Set.of(disabledFormat));
+            return build(wrapper, Set.of(disabledFormat), false);
         }
 
         public static WrappablePlaceholder build(
                 final char wrapper,
-                final boolean isWrapped,
-                final Set<String> disabledFormats
+                final Set<String> disabledFormats,
+                boolean withExtra
         ) {
             int endIndex = countEndIndex(null, disabledFormats);
-            return builder(wrapper, isWrapped)
+            return builder(wrapper)
                     .disabledFormats(disabledFormats)
-                    .position(getPosition(isWrapped, defaultStartIndex, endIndex))
+                    .position(getPosition(defaultStartIndex, withExtra ? endIndex - 3 : endIndex))
                     .build();
         }
 
         public static WrappablePlaceholder build(
                 final char wrapper,
-                final boolean isWrapped,
                 final List<String[]> enabledFormats,
                 final Set<String> disabledFormats
         ) {
-            return builder(wrapper, isWrapped).enabledFormats(enabledFormats).disabledFormats(disabledFormats).build();
+            return builder(wrapper).enabledFormats(enabledFormats).disabledFormats(disabledFormats).build();
         }
 
-        private static WrappablePlaceholder.WrappablePlaceholderBuilder<?, ?> builder(
-                final char wrapper,
-                final boolean isWrapped
-        ) {
+        private static WrappablePlaceholder.WrappablePlaceholderBuilder<?, ?> builder(final char wrapper) {
             return WrappablePlaceholder.builder()
                     .name(defaultPlaceholderName)
                     .enabledFormats(List.of())
                     .disabledFormats(Set.of())
                     .wrapper(wrapper)
-                    .position(getPosition(isWrapped, defaultStartIndex, defaultEndIndex));
+                    .position(getPosition(defaultStartIndex, defaultEndIndex));
         }
 
-        public static WrappablePlaceholder.WrappablePlaceholderBuilder<?, ?> builderEscaped(
-                final char wrapper,
-                final boolean isWrapped
-        ) {
+        public static WrappablePlaceholder.WrappablePlaceholderBuilder<?, ?> builderEscaped(final char wrapper) {
             return WrappablePlaceholder.builder()
                     .name(defaultEscapedPlaceholderName)
                     .enabledFormats(List.<String[]>of(F1_V_ESCAPED))
                     .disabledFormats(Set.of(F1_V_ESCAPED[1]))
                     .wrapper(wrapper)
-                    .position(getPosition(isWrapped, defaultStartIndex, defaultEscapedEndIndex));
+                    .position(getPosition(defaultEscapedStartIndex, defaultEscapedEndIndex));
         }
 
-        public static Position getPosition(final boolean isWrapped, final int startIndex, final int endIndex) {
-            return Position.of(isWrapped ? startIndex - 1 : startIndex, isWrapped ? endIndex + 1 : endIndex);
+        public static Position getPosition(final int startIndex, final int endIndex) {
+            return Position.of(startIndex - 1, endIndex + 1);
         }
 
         public static class Json {
 
             private static final char wrapper = '"';
 
-            public static WrappablePlaceholder buildEscaped(final boolean isWrapped) {
-                return Wrappable.buildEscaped(wrapper, isWrapped);
+            public static WrappablePlaceholder buildEscaped() {
+                return Wrappable.buildEscaped(wrapper);
             }
 
-            public static WrappablePlaceholder build(final boolean isWrapped) {
-                return Wrappable.build(wrapper, isWrapped);
+            public static WrappablePlaceholder build() {
+                return Wrappable.build(wrapper);
             }
 
-            public static WrappablePlaceholder build(final boolean isWrapped, final String[] enabledFormat) {
-                return Wrappable.build(wrapper, isWrapped, enabledFormat);
+            public static WrappablePlaceholder build(final String[] enabledFormat) {
+                return Wrappable.build(wrapper, enabledFormat);
             }
 
-            public static WrappablePlaceholder build(final boolean isWrapped, final List<String[]> enabledFormats) {
-                return Wrappable.build(wrapper, isWrapped, enabledFormats);
+            public static WrappablePlaceholder build(final List<String[]> enabledFormats) {
+                return Wrappable.build(wrapper, enabledFormats);
             }
 
-            public static WrappablePlaceholder build(final boolean isWrapped, final String disabledFormat) {
-                return Wrappable.build(wrapper, isWrapped, disabledFormat);
+            public static WrappablePlaceholder build(final String disabledFormat) {
+                return Wrappable.build(wrapper, disabledFormat);
             }
 
-            public static WrappablePlaceholder build(final boolean isWrapped, final Set<String> disabledFormats) {
+            public static WrappablePlaceholder build(final Set<String> disabledFormats) {
+                return Wrappable.build(wrapper, disabledFormats, false);
+            }
 
-                return Wrappable.build(wrapper, isWrapped, disabledFormats);
+            public static WrappablePlaceholder buildWithExtra(final Set<String> disabledFormats) {
+                return Wrappable.build(wrapper, disabledFormats, true);
             }
 
             public static WrappablePlaceholder build(
-                    final boolean isWrapped,
                     final List<String[]> enabledFormats,
                     final Set<String> disabledFormats
             ) {
-                return Wrappable.build(wrapper, isWrapped, enabledFormats, disabledFormats);
+                return Wrappable.build(wrapper, enabledFormats, disabledFormats);
             }
         }
     }

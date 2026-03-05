@@ -46,6 +46,12 @@ public class SourceUtils {
             }
             """;
 
+    public static final String SOURCE_WITH_DISABLED_NW = """
+            {
+                "key": "${placeholder::nw}"
+            }
+            """;
+
     // incorrect
     public static final String SOURCE_WITHOUT_PLACEHOLDER_NAME = """
             {

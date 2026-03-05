@@ -7,5 +7,7 @@ public class FormatUtils {
     public static final String[] F1_V_ESCAPED = new String[] {"f1^}=,:", "v1^},:"};
     public static final String[] F2 = new String[] {"f2", null};
     public static final String[] F2_V = new String[] {"f2", "v2"};
+    public static final String[] NW = new String[] {"nw", null};
+    public static final String[] NE = new String[] {"ne", null};
 
 }

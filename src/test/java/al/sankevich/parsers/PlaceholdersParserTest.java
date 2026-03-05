@@ -28,11 +28,15 @@ class PlaceholdersParserTest {
     public void jsonParserTest_Success(final String source, final WrappablePlaceholder expected) {
         PlaceholderParser<WrappablePlaceholder> parser = setUpJson(source);
 
-        AssertUtils.assertEquals(expected, parser.parse());
+        Placeholder parsed = parser.parse();
+
+        System.out.println(parsed);
+
+        AssertUtils.assertEquals(expected, parsed);
     }
 
     @ParameterizedTest
-    @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#provideIncorrect"})
+    @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#provideJsonIncorrect"})
     public void plainParserTest_Fail(final String source, final String expected) {
         PlaceholderParser<Placeholder> parser = setUpPlain(source);
 
@@ -41,7 +45,7 @@ class PlaceholdersParserTest {
     }
 
     @ParameterizedTest
-    @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#provideIncorrect"})
+    @MethodSource({"al.sankevich.providers.ParserArgumentsProvider#provideJsonIncorrect"})
     public void jsonParserTest_Fail(final String source, final String expected) {
         PlaceholderParser<WrappablePlaceholder> parser = setUpJson(source);
 
