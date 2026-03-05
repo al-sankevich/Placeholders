@@ -82,4 +82,28 @@ public class SourceUtils {
                 "key": "${placeholder::f1,}"
             }
             """;
+
+    public static final String SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_PLACEHOLDER_NAME = """
+            {
+                "key": "${p^laceholder}"
+            }
+            """;
+
+    public static final String SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_NAME = """
+            {
+                "key": "${placeholder:f^1}"
+            }
+            """;
+
+    public static final String SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_VALUE = """
+            {
+                "key": "${placeholder:f1=v^1}"
+            }
+            """;
+
+    public static final String SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_DISABLED_FORMAT_NAME = """
+            {
+                "key": "${placeholder::f^1}"
+            }
+            """;
 }

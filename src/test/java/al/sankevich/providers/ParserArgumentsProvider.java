@@ -7,13 +7,17 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import static al.sankevich.utils.ExceptionUtils.EMPTY_DISABLED_FORMAT_NAME_AFTER_COMMA;
+import static al.sankevich.utils.ExceptionUtils.EMPTY_DISABLED_FORMAT_NAME_AFTER_COMMA_MESSAGE;
 import static al.sankevich.utils.ExceptionUtils.EMPTY_DISABLED_FORMAT_NAME_BEFORE_COMMA_MESSAGE;
 import static al.sankevich.utils.ExceptionUtils.EMPTY_ENABLED_FORMAT_NAME_AFTER_COMMA_MESSAGE;
 import static al.sankevich.utils.ExceptionUtils.EMPTY_ENABLED_FORMAT_NAME_BEFORE_COMMA_MESSAGE;
 import static al.sankevich.utils.ExceptionUtils.EMPTY_ENABLED_FORMAT_NAME_MESSAGE;
 import static al.sankevich.utils.ExceptionUtils.EMPTY_ENABLED_FORMAT_VALUE_MESSAGE;
 import static al.sankevich.utils.ExceptionUtils.EMPTY_PLACEHOLDER_NAME_MESSAGE;
+import static al.sankevich.utils.ExceptionUtils.ESCAPED_UNRESERVED_CHAR_IN_DISABLED_FORMAT_NAME_MESSAGE;
+import static al.sankevich.utils.ExceptionUtils.ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_NAME_MESSAGE;
+import static al.sankevich.utils.ExceptionUtils.ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_VALUE_MESSAGE;
+import static al.sankevich.utils.ExceptionUtils.ESCAPED_UNRESERVED_CHAR_IN_PLACEHOLDER_NAME_MESSAGE;
 import static al.sankevich.utils.FormatUtils.F1;
 import static al.sankevich.utils.FormatUtils.F1_V;
 import static al.sankevich.utils.FormatUtils.F2;
@@ -32,6 +36,10 @@ import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMAT;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMATS;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMATS_WITH_VALUES;
 import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ENABLED_FORMAT_WITH_VALUE;
+import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_DISABLED_FORMAT_NAME;
+import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_NAME;
+import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_VALUE;
+import static al.sankevich.utils.SourceUtils.SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_PLACEHOLDER_NAME;
 
 public class ParserArgumentsProvider {
 
@@ -105,7 +113,23 @@ public class ParserArgumentsProvider {
                 ),
                 Arguments.of(
                         SOURCE_WITHOUT_DISABLED_FORMAT_NAME_AFTER_COMMA,
-                        EMPTY_DISABLED_FORMAT_NAME_AFTER_COMMA
+                        EMPTY_DISABLED_FORMAT_NAME_AFTER_COMMA_MESSAGE
+                ),
+                Arguments.of(
+                        SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_PLACEHOLDER_NAME,
+                        ESCAPED_UNRESERVED_CHAR_IN_PLACEHOLDER_NAME_MESSAGE
+                ),
+                Arguments.of(
+                        SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_NAME,
+                        ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_NAME_MESSAGE
+                ),
+                Arguments.of(
+                        SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_VALUE,
+                        ESCAPED_UNRESERVED_CHAR_IN_ENABLED_FORMAT_VALUE_MESSAGE
+                ),
+                Arguments.of(
+                        SOURCE_WITH_ESCAPED_UNRESERVED_CHAR_IN_DISABLED_FORMAT_NAME,
+                        ESCAPED_UNRESERVED_CHAR_IN_DISABLED_FORMAT_NAME_MESSAGE
                 )
         );
     }
