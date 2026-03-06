@@ -49,7 +49,7 @@ public class Main {
         log.info("Processing file {}", fileName);
         try (InputStream is = classloader.getResourceAsStream(fileName)) {
             String content = new String(Objects.requireNonNull(is).readAllBytes());
-            String result = PLACEHOLDER_PROCESSOR.process(content, type, func);
+            String result = PLACEHOLDER_PROCESSOR.process(content, type, func, "skippable_placeholder");
             log.info("{}", content);
             log.info("{}", result);
         }
@@ -59,7 +59,7 @@ public class Main {
     private static void process(final List<Object> list) {
         log.info("Processing list");
         log.info("{}", objectMapper.writeValueAsString(list));
-        List<Object> result = PLACEHOLDER_PROCESSOR.process(list, func);
+        List<Object> result = PLACEHOLDER_PROCESSOR.process(list, func, "skippable_placeholder");
         log.info("{}", objectMapper.writeValueAsString(result));
     }
 
@@ -67,7 +67,7 @@ public class Main {
     private static void process(final Map<String, Object> map) {
         log.info("Processing map");
         log.info("{}", objectMapper.writeValueAsString(map));
-        Map<String, Object> result = PLACEHOLDER_PROCESSOR.process(map, func);
+        Map<String, Object> result = PLACEHOLDER_PROCESSOR.process(map, func, "skippable_placeholder");
         log.info("{}", objectMapper.writeValueAsString(result));
     }
 
@@ -87,6 +87,12 @@ public class Main {
     static class NullJson {
         public static void main(String[] args) {
             process("test-null.json", JSON);
+        }
+    }
+
+    static class SkippableJson {
+        public static void main(String[] args) {
+            process("test-skippable.json", JSON);
         }
     }
 
@@ -183,7 +189,7 @@ public class Main {
         }
     }
 
-    static class ListWithComplexPlaceholder {
+    static class ComplexList {
         public static void main(String[] args) {
             List<Object> list = new ArrayList<>(List.of(
                     "not_placeholder",
@@ -194,7 +200,7 @@ public class Main {
         }
     }
 
-    static class ListWithFormattedComplexPlaceholder {
+    static class FormattedComplexList {
         public static void main(String[] args) {
             List<Object> list = new ArrayList<>(List.of(
                     "not_placeholder",
@@ -243,7 +249,7 @@ public class Main {
         }
     }
 
-    static class MapWithComplexPlaceholder {
+    static class ComplexMap {
         public static void main(String[] args) {
             Map<String, Object> map = new HashMap<>(Map.of(
                     "key1", "not_placeholder",
@@ -254,7 +260,7 @@ public class Main {
         }
     }
 
-    static class MapWithFormattedComplexPlaceholder {
+    static class FormattedComplexMap {
         public static void main(String[] args) {
             Map<String, Object> map = new HashMap<>(Map.of(
                     "key1", "not_placeholder",
@@ -268,6 +274,7 @@ public class Main {
     static class MapWithList {
         public static void main(String[] args) {
             List<Object> innerList = new ArrayList<>(List.of(
+                    "${skippable_placeholder}",
                     "${another_placeholder}",
                     "${complex_placeholder::nw}",
                     5
