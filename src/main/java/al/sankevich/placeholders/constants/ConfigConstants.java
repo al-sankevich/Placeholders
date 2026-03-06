@@ -2,8 +2,10 @@ package al.sankevich.placeholders.constants;
 
 import al.sankevich.placeholders.configs.configurations.PlaceholdersProcessingConfiguration;
 import al.sankevich.placeholders.configs.configurers.impl.DefaultPlaceholdersProcessingConfigurationConfigurer;
+import al.sankevich.placeholders.contenttypes.impl.DefaultContentTypes;
 import al.sankevich.placeholders.dtos.Placeholder;
 import al.sankevich.placeholders.dtos.WrappablePlaceholder;
+import al.sankevich.placeholders.formatters.impl.disabled.ext.TestFormatter;
 import al.sankevich.placeholders.formatters.impl.enabled.ext.WrappingPlaceholderValueFormatter;
 import al.sankevich.placeholders.formatters.impl.enabled.ext.escaping.ext.JsonEscapingPlaceholderValueFormatter;
 import al.sankevich.placeholders.formatters.impl.enabled.ext.escaping.ext.SqlEscapingPlaceholderValueFormatter;
@@ -51,6 +53,11 @@ public class ConfigConstants {
                             .formatting(c -> c
                                     .enabled(c1 -> c1
                                             .addFormatter(new WrappingPlaceholderValueFormatter())
+                                    )
+                            ).forTypes(DefaultContentTypes.values())
+                            .formatting(c -> c
+                                    .disabled(c1 -> c1
+                                            .addFormatter(new TestFormatter())
                                     )
                             )
             )

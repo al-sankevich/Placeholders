@@ -34,7 +34,7 @@ public class Main {
             return null;
         }
 
-        if (placeholder.equals("complex_placeholder")) {
+        if (placeholder.equals("complex_placeholder") || placeholder.equals("place:holder")) {
             return new ArrayList<>(List.of("a", "b", "c"));
         }
 
@@ -155,7 +155,7 @@ public class Main {
         public static void main(String[] args) {
             List<Object> list = new ArrayList<>(List.of(
                     "not_placeholder",
-                    "${placeholder}",
+                    "${place^:holder}",
                     5
             ));
             process(list);
@@ -291,7 +291,7 @@ public class Main {
             ));
             Map<String, Object> map = new HashMap<>(Map.of(
                     "key1", "not_placeholder",
-                    "key2", "${placeholder}",
+                    "key2", "${placeholder:test}",
                     "key3", list
             ));
             process(map);

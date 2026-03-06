@@ -1,4 +1,4 @@
 {
   "key": "value",
-  "key1": "${placeholder}"
+  "key1": "${complex_placeholder}"
 }

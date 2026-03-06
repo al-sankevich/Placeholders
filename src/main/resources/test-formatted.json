@@ -1,4 +1,4 @@
 {
   "key": "value",
-  "key1": "${placeholder::nw}"
+  "key1": "${placeholder:test1,test2,test3:nw}"
 }
