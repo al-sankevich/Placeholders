@@ -6,10 +6,17 @@ import al.sankevich.placeholders.engines.source.SourceProcessingEngine;
 import al.sankevich.placeholders.engines.source.ext.impl.DefaultSourceProcessingEngine;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -296,5 +303,18 @@ public class Main {
             ));
             process(map);
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        Mustache mustache = new DefaultMustacheFactory() {
+            @Override
+            public Reader getReader(String resourceName) {
+                InputStream is = getClass().getResourceAsStream("/mustache/" + resourceName);
+                return new InputStreamReader(is, StandardCharsets.UTF_8);
+            }
+        }.compile("test-default.json");
+        StringWriter writer = new StringWriter();
+        mustache.execute(writer, Map.of("placeholder", "placeholder")).flush();
+        System.out.println(writer);
     }
 }

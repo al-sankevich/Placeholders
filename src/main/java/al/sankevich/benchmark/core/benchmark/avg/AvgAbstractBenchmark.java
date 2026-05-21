@@ -41,10 +41,10 @@ public abstract class AvgAbstractBenchmark implements ValuesProvider, EngineProv
     @Benchmark
     @CompilerControl(CompilerControl.Mode.DONT_INLINE)
     @BenchmarkMode(Mode.AverageTime)
-    @OutputTimeUnit(TimeUnit.MILLISECONDS)
+    @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @Warmup(iterations = 5, time = 1)
-    @Measurement(iterations = 10, time = 1)
-    @Fork(5)
+    @Measurement(iterations = 100, time = 1)
+    @Fork(1)
     @Threads(1)
     public void check(Blackhole blackhole) {
         String result = processingEngine.process(content, type, this);
