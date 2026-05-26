@@ -2,7 +2,7 @@
   <configuration default="false" name="JsonLibAvgBenchmark" type="Application" factoryName="Application" folderName="lib">
     <option name="MAIN_CLASS_NAME" value="org.openjdk.jmh.Main" />
     <module name="Placeholders" />
-    <option name="PROGRAM_PARAMETERS" value="al.sankevich.benchmark.JsonLibAvgBenchmark.check$ -rf json -rff results/custom-json.json" />
+    <option name="PROGRAM_PARAMETERS" value="al.sankevich.benchmark.DefaultJsonLibAvgBenchmark.check$ -rf json -rff results/custom-json.json" />
     <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
     <extension name="coverage">
       <pattern>
