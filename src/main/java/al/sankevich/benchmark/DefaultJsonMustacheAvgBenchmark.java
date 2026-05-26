@@ -1,18 +1,15 @@
 package al.sankevich.benchmark;
 
 import al.sankevich.benchmark.mustache.context.ext.DefaultContextProvider;
-import al.sankevich.benchmark.mustache.jmh.avg.MustacheAvgAbstractBenchmark;
 import al.sankevich.benchmark.mustache.engine.DefaultEngineProvider;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
+import al.sankevich.benchmark.mustache.jmh.avg.MustacheAvgAbstractBenchmark;
 
 import static al.sankevich.benchmark.core.constants.ProfilingConstants.DEFAULT_PROFILING;
 
-@State(Scope.Benchmark)
-public class MustacheAvgBenchmark extends MustacheAvgAbstractBenchmark
+public class DefaultJsonMustacheAvgBenchmark extends MustacheAvgAbstractBenchmark
         implements DefaultEngineProvider, DefaultContextProvider {
 
-    public MustacheAvgBenchmark() {
+    public DefaultJsonMustacheAvgBenchmark() {
         super("test-default.json");
     }
 
