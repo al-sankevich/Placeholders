@@ -1,4 +1,4 @@
-package al.sankevich.benchmark.core.values;
+package al.sankevich.benchmark.lib.values;
 
 import java.util.function.Function;
 

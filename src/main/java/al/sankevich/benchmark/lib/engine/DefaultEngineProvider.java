@@ -1,11 +1,11 @@
-package al.sankevich.benchmark.core.engine.ext;
+package al.sankevich.benchmark.lib.engine;
 
-import al.sankevich.benchmark.core.engine.EngineProvider;
+import al.sankevich.benchmark.core.EngineProvider;
 import al.sankevich.placeholders.constants.ConfigConstants;
 import al.sankevich.placeholders.engines.source.SourceProcessingEngine;
 import al.sankevich.placeholders.engines.source.ext.impl.DefaultSourceProcessingEngine;
 
-public interface DefaultEngineProvider extends EngineProvider {
+public interface DefaultEngineProvider extends EngineProvider<SourceProcessingEngine> {
 
     @Override
     default SourceProcessingEngine getEngine() {

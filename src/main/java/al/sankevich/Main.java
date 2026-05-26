@@ -80,81 +80,81 @@ public class Main {
 
     static class DefaultJson {
         public static void main(String[] args) {
-            process("test-default.json", JSON);
+            process("lib/test-default.json", JSON);
         }
     }
 
     static class CachedJson {
         public static void main(String[] args) {
-            process("test-default.json", JSON);
-            process("test-default.json", JSON);
+            process("lib/test-default.json", JSON);
+            process("lib/test-default.json", JSON);
         }
     }
 
     static class NullJson {
         public static void main(String[] args) {
-            process("test-null.json", JSON);
+            process("lib/test-null.json", JSON);
         }
     }
 
     static class SkippableJson {
         public static void main(String[] args) {
-            process("test-skippable.json", JSON);
+            process("lib/test-skippable.json", JSON);
         }
     }
 
     static class FormattedJson {
         public static void main(String[] args) {
-            process("test-formatted.json", JSON);
+            process("lib/test-formatted.json", JSON);
         }
     }
 
     static class StringPartJson {
         public static void main(String[] args) {
-            process("test-string-part.json", JSON);
+            process("lib/test-string-part.json", JSON);
         }
     }
 
     static class ArrayJson {
         public static void main(String[] args) {
-            process("test-array.json", JSON);
+            process("lib/test-array.json", JSON);
         }
     }
 
     static class FormattedArrayJson {
         public static void main(String[] args) {
-            process("test-array-formatted.json", JSON);
+            process("lib/test-array-formatted.json", JSON);
         }
     }
 
     static class DefaultSql {
         public static void main(String[] args) {
-            process("test-default.sql", SQL);
+            process("lib/test-default.sql", SQL);
         }
     }
 
     static class CachedSql {
         public static void main(String[] args) {
-            process("test-default.sql", SQL);
-            process("test-default.sql", SQL);
+            process("lib/test-default.sql", SQL);
+            process("lib/test-default.sql", SQL);
         }
     }
 
     static class NullSql {
         public static void main(String[] args) {
-            process("test-null.sql", SQL);
+            process("lib/test-null.sql", SQL);
         }
     }
 
     static class FormattedSql {
         public static void main(String[] args) {
-            process("test-formatted.sql", SQL);
+            process("lib/test-formatted.sql", SQL);
         }
     }
 
     static class StringPartSql {
         public static void main(String[] args) {
-            process("test-string-part.sql", SQL);
+            process("lib/test-string-part.sql", SQL);
         }
     }
 
@@ -313,7 +313,7 @@ public class Main {
                 InputStream is = getClass().getResourceAsStream("/mustache/" + resourceName);
                 return new InputStreamReader(is, StandardCharsets.UTF_8);
             }
-        }.compile("test-default.json");
+        }.compile("lib/test-default.json");
         StringWriter writer = new StringWriter();
         mustache.execute(writer, context).flush();
         System.out.println(writer);

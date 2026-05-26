@@ -1,11 +1,5 @@
-package al.sankevich.benchmark.core.base;
+package al.sankevich.benchmark.core.jmh;
 
-import al.sankevich.benchmark.core.engine.EngineProvider;
-import al.sankevich.benchmark.core.utils.FileUtils;
-import al.sankevich.benchmark.core.values.ValuesProvider;
-import al.sankevich.placeholders.contenttypes.ContentType;
-import al.sankevich.placeholders.engines.source.SourceProcessingEngine;
-import lombok.RequiredArgsConstructor;
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
 import org.openjdk.jmh.annotations.CompilerControl;
@@ -23,19 +17,12 @@ import org.openjdk.jmh.infra.Blackhole;
 import java.util.concurrent.TimeUnit;
 
 @State(Scope.Benchmark)
-@RequiredArgsConstructor
-public abstract class AvgAbstractBenchmark implements ValuesProvider, EngineProvider {
-
-    private final ContentType type;
-    private final String filename;
-
-    private String content;
-    private SourceProcessingEngine processingEngine;
+public abstract class AvgAbstractBenchmark implements AbstractBenchmark {
 
     @Setup
+    @Override
     public void setup() {
-        content = FileUtils.loadFile(filename);
-        processingEngine = getEngine();
+
     }
 
     @Benchmark
@@ -46,8 +33,8 @@ public abstract class AvgAbstractBenchmark implements ValuesProvider, EngineProv
     @Measurement(iterations = 100, time = 1)
     @Fork(1)
     @Threads(1)
+    @Override
     public void check(Blackhole blackhole) {
-        String result = processingEngine.process(content, type, this);
-        blackhole.consume(result);
+
     }
 }

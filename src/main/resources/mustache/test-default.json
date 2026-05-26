@@ -1,4 +1,4 @@
 {
   "key": "value",
-  "key1": "{{#br}}placeholder{{/br}}"
+  "key1": "{{placeholder}}"
 }
