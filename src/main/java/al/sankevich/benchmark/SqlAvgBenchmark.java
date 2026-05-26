@@ -1,8 +1,8 @@
 package al.sankevich.benchmark;
 
-import al.sankevich.benchmark.core.benchmark.avg.ext.SqlAvgAbstractBenchmark;
+import al.sankevich.benchmark.core.base.ext.SqlAvgAbstractBenchmark;
 import al.sankevich.benchmark.core.engine.ext.DefaultEngineProvider;
-import al.sankevich.benchmark.core.values.wrappable.sql.SqlDefaultValuesProvider;
+import al.sankevich.benchmark.core.values.wrappable.SqlDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 

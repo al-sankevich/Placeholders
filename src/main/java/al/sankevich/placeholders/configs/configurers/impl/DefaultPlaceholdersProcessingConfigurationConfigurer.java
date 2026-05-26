@@ -4,42 +4,50 @@ import al.sankevich.placeholders.configs.configurations.PlaceholdersProcessingCo
 import al.sankevich.placeholders.configs.configurers.ContentTypeConfigurer;
 import al.sankevich.placeholders.configs.configurers.PlaceholdersProcessingConfigurationConfigurer;
 import al.sankevich.placeholders.configs.configurers.SkippablePlaceholdersConfigurer;
-import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
+import al.sankevich.placeholders.configs.configurers.auto.Applicator;
+import al.sankevich.placeholders.configs.configurers.auto.ApplicatorConfigurer;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
-
-@RequiredArgsConstructor(staticName = "from", access = AccessLevel.PRIVATE)
 public class DefaultPlaceholdersProcessingConfigurationConfigurer
+        extends ApplicatorConfigurer<PlaceholdersProcessingConfiguration>
         implements PlaceholdersProcessingConfigurationConfigurer<PlaceholdersProcessingConfiguration> {
 
     private final PlaceholdersProcessingConfiguration ppc;
-    private final List<Consumer<PlaceholdersProcessingConfiguration>> cs = new ArrayList<>();
+
+    private DefaultPlaceholdersProcessingConfigurationConfigurer(final PlaceholdersProcessingConfiguration ppc) {
+        super(ppc);
+        this.ppc = ppc;
+    }
 
     public static DefaultPlaceholdersProcessingConfigurationConfigurer init() {
         return from(new PlaceholdersProcessingConfiguration());
     }
 
+    public static DefaultPlaceholdersProcessingConfigurationConfigurer from(
+            final PlaceholdersProcessingConfiguration ppc
+    ) {
+        return new DefaultPlaceholdersProcessingConfigurationConfigurer(ppc);
+    }
+
     @Override
     public DefaultPlaceholdersProcessingConfigurationConfigurer contentTypes(
-            final Consumer<ContentTypeConfigurer> c
+            final Applicator<ContentTypeConfigurer> c
     ) {
-        cs.add(
-                (ppc) -> c.accept(
-                        new DefaultContentTypeConfigurer(ppc.getCtpc())
-                )
+        addApplicator(
+                "contentType", (ppc) -> {
+                    ContentTypeConfigurer ctc = new DefaultContentTypeConfigurer(ppc.getCtpc());
+                    c.apply(ctc);
+                    return ctc;
+                }
         );
         return this;
     }
 
     @Override
     public DefaultPlaceholdersProcessingConfigurationConfigurer placeholders(
-            final Consumer<SkippablePlaceholdersConfigurer> c
+            final Applicator<SkippablePlaceholdersConfigurer> c
     ) {
-        cs.add(
-                (ppc) -> c.accept(
+        addApplicator(
+                "skippablePlaceholders", (ppc) -> c.apply(
                         new DefaultSkippablePlaceholdersConfigurer(ppc.getSpc())
                 )
         );
@@ -48,7 +56,7 @@ public class DefaultPlaceholdersProcessingConfigurationConfigurer
 
     @Override
     public PlaceholdersProcessingConfiguration get() {
-        cs.forEach(c -> c.accept(this.ppc));
+        config();
         return ppc;
     }
 

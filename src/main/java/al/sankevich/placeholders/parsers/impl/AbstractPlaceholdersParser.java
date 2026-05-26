@@ -21,10 +21,10 @@ import static al.sankevich.placeholders.constants.ParsingConstants.ENABLED_FORMA
 import static al.sankevich.placeholders.constants.ParsingConstants.ESCAPING_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.FORMATS_SEPARATING_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.FORMAT_SEPARATING_SYMBOL;
-import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_LEFT_BORDER_SYMBOL;
+import static al.sankevich.placeholders.constants.ParsingConstants.DEFAULT_PLACEHOLDER_LEFT_BORDER_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_NAME_COMPONENT;
-import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_RIGHT_BORDER_SYMBOL;
-import static al.sankevich.placeholders.constants.ParsingConstants.PLACEHOLDER_STARTING_SYMBOL;
+import static al.sankevich.placeholders.constants.ParsingConstants.DEFAULT_PLACEHOLDER_RIGHT_BORDER_SYMBOL;
+import static al.sankevich.placeholders.constants.ParsingConstants.DEFAULT_PLACEHOLDER_STARTING_SYMBOL;
 import static al.sankevich.placeholders.constants.ParsingConstants.SECTIONS_SEPARATING_SYMBOL;
 
 /**
@@ -110,18 +110,18 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
 
     private boolean isPlaceholderStarts() {
         int nextPoint = i + 1;
-        return charAt(i) == PLACEHOLDER_STARTING_SYMBOL &&
-                nextPoint < length() && charAt(nextPoint) == PLACEHOLDER_LEFT_BORDER_SYMBOL;
+        return charAt(i) == DEFAULT_PLACEHOLDER_STARTING_SYMBOL &&
+                nextPoint < length() && charAt(nextPoint) == DEFAULT_PLACEHOLDER_LEFT_BORDER_SYMBOL;
     }
 
     private void searchPlaceholderOrFileEnd() {
-        while (j < length() && (charAt(j) != PLACEHOLDER_RIGHT_BORDER_SYMBOL || isEscaped)) {
+        while (j < length() && (charAt(j) != DEFAULT_PLACEHOLDER_RIGHT_BORDER_SYMBOL || isEscaped)) {
             updateIsEscaped(j++);
         }
     }
 
     private boolean isPlaceholderEnd() {
-        return j < length() && charAt(j) == PLACEHOLDER_RIGHT_BORDER_SYMBOL && !isEscaped;
+        return j < length() && charAt(j) == DEFAULT_PLACEHOLDER_RIGHT_BORDER_SYMBOL && !isEscaped;
     }
 
     private String searchPlaceholderName() {
@@ -131,7 +131,7 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
     private List<String[]> searchEnabledFormats() {
         if (isSectionSkippable()) {
             ++i;
-            return List.of();
+            return null;
         }
 
         List<String[]> formats = new ArrayList<>();
@@ -150,12 +150,12 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
     }
 
     private Set<String> searchDisabledFormats() {
-        Set<String> formats = new HashSet<>();
-
         if (isSectionSkippable()) {
             ++i;
-            return formats;
+            return null;
         }
+
+        Set<String> formats = new HashSet<>();
 
         while (i < j) {
             formats.add(searchDisabledFormatName());
@@ -229,7 +229,7 @@ public abstract class AbstractPlaceholdersParser<T extends Placeholder> implemen
     }
 
     private boolean isNotReserved(final int pointer, final Component component) {
-        return charAt(pointer) != ESCAPING_SYMBOL && charAt(pointer) != PLACEHOLDER_RIGHT_BORDER_SYMBOL &&
+        return charAt(pointer) != ESCAPING_SYMBOL && charAt(pointer) != DEFAULT_PLACEHOLDER_RIGHT_BORDER_SYMBOL &&
                 isNotEndOfComponent(pointer, component);
     }
 

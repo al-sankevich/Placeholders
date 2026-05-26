@@ -11,9 +11,9 @@ public class ParsingConstants {
     public static final char SECTIONS_SEPARATING_SYMBOL = ':';
     public static final char FORMAT_SEPARATING_SYMBOL = '=';
 
-    public static final char PLACEHOLDER_LEFT_BORDER_SYMBOL = '{';
-    public static final char PLACEHOLDER_RIGHT_BORDER_SYMBOL = '}';
-    public static final char PLACEHOLDER_STARTING_SYMBOL = '$';
+    public static final char DEFAULT_PLACEHOLDER_LEFT_BORDER_SYMBOL = '{';
+    public static final char DEFAULT_PLACEHOLDER_RIGHT_BORDER_SYMBOL = '}';
+    public static final char DEFAULT_PLACEHOLDER_STARTING_SYMBOL = '$';
 
     public static final String PLACEHOLDER_NAME = "Placeholder name";
     public static final String ENABLED_FORMAT_NAME = "Enabled format name";

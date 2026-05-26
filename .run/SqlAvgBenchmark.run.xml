@@ -2,7 +2,7 @@
   <configuration default="false" name="SqlAvgBenchmark" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="org.openjdk.jmh.Main" />
     <module name="Placeholders" />
-    <option name="PROGRAM_PARAMETERS" value="al.sankevich.benchmark.SqlAvgBenchmark.check$ -rf json -rff results-sql.json" />
+    <option name="PROGRAM_PARAMETERS" value="al.sankevich.benchmark.SqlAvgBenchmark.check$ -rf json -rff results/custom-sql.json" />
     <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
     <extension name="coverage">
       <pattern>

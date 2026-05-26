@@ -1,9 +1,10 @@
 package al.sankevich.placeholders.configs.configurers;
 
+import al.sankevich.placeholders.configs.configurers.auto.AutoConfigurer;
 import al.sankevich.placeholders.contenttypes.ContentType;
 import al.sankevich.placeholders.dtos.Placeholder;
 
-public interface ContentTypeConfigurer {
+public interface ContentTypeConfigurer extends AutoConfigurer {
 
     <T extends Placeholder> ContentTypesProcessingConfigurer<T> forTypes(ContentType... cts);
 

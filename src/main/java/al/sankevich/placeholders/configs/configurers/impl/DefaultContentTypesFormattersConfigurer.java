@@ -8,7 +8,8 @@ import al.sankevich.placeholders.formatters.PlaceholderValueFormatter;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class DefaultContentTypesFormattersConfigurer<T extends Placeholder, F extends PlaceholderValueFormatter<? super T>> implements ContentTypesFormattersConfigurer<T, F> {
+public class DefaultContentTypesFormattersConfigurer<T extends Placeholder, F extends PlaceholderValueFormatter<? super T>>
+        implements ContentTypesFormattersConfigurer<T, F> {
 
     private final ContentTypesProcessingConfiguration ctpc;
     private final ContentType[] cts;

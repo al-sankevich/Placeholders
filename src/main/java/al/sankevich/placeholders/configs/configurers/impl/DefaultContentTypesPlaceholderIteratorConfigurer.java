@@ -10,7 +10,9 @@ import lombok.RequiredArgsConstructor;
 import java.util.function.Function;
 
 @RequiredArgsConstructor
-public class DefaultContentTypesPlaceholderIteratorConfigurer<T extends Placeholder> implements ContentTypesPlaceholderIteratorConfigurer<T> {
+public class DefaultContentTypesPlaceholderIteratorConfigurer<T extends Placeholder>
+        //extends BiApplicatorConfigurer<ContentTypesProcessingConfiguration, ContentType[]>
+        implements ContentTypesPlaceholderIteratorConfigurer<T> {
 
     private final ContentTypesProcessingConfiguration ctpc;
     private final ContentType[] cts;

@@ -33,9 +33,10 @@ public class WrappablePlaceholdersParser extends AbstractPlaceholdersParser<Wrap
     ) {
         int tempStartIndex = startIndex;
         int tempEndIndex = endIndex;
+        Set<String> tempDisabledFormats = disabledFormats;
 
-        if (disabledFormats.contains(NO_WRAP)) {
-            disabledFormats.add(NO_ESCAPE);
+        if (tempDisabledFormats != null && tempDisabledFormats.contains(NO_WRAP)) {
+            tempDisabledFormats.add(NO_ESCAPE);
         }
 
         if (startIndex > 0 && endIndex < source.length() - 1 &&
@@ -44,15 +45,19 @@ public class WrappablePlaceholdersParser extends AbstractPlaceholdersParser<Wrap
             --tempStartIndex;
             ++tempEndIndex;
         } else {
-            disabledFormats.add(NO_WRAP);
+            if (tempDisabledFormats != null) {
+                tempDisabledFormats.add(NO_WRAP);
+            } else {
+                tempDisabledFormats = Set.of(NO_WRAP);
+            }
         }
 
         return new WrappablePlaceholder(
                 placeholderName,
                 delimiter,
                 Position.of(tempStartIndex, tempEndIndex),
-                enabledFormats,
-                disabledFormats
+                enabledFormats != null ? enabledFormats : List.of(),
+                tempDisabledFormats != null ? tempDisabledFormats : Set.of()
         );
     }
 }

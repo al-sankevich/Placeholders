@@ -23,8 +23,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Function;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 
@@ -32,7 +32,13 @@ import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 @RequiredArgsConstructor
 public class MustacheAvgBenchmark {
 
+    private final Context context = new Context();
+
     private Mustache mustache;
+
+    public static void main(String[] args) throws Exception {
+        org.openjdk.jmh.Main.main(DEFAULT_PROFILING);
+    }
 
     @Setup
     public void setup() {
@@ -55,11 +61,18 @@ public class MustacheAvgBenchmark {
     @Threads(1)
     public void check(Blackhole blackhole) throws IOException {
         StringWriter writer = new StringWriter();
-        mustache.execute(writer, Map.of("placeholder", "placeholder")).flush();
+        mustache.execute(writer, context).flush();
         blackhole.consume(writer.toString());
     }
 
-    public static void main(String[] args) throws Exception {
-        org.openjdk.jmh.Main.main(DEFAULT_PROFILING);
+    public static class Context {
+
+        public Function<String, String> br() {
+            return s -> new StringBuilder(s.length() + 2)
+                    .append('"')
+                    .append(s)
+                    .append('"')
+                    .toString();
+        }
     }
 }

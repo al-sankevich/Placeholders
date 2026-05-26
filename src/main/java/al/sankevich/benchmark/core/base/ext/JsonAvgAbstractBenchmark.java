@@ -1,6 +1,6 @@
-package al.sankevich.benchmark.core.benchmark.avg.ext;
+package al.sankevich.benchmark.core.base.ext;
 
-import al.sankevich.benchmark.core.benchmark.avg.AvgAbstractBenchmark;
+import al.sankevich.benchmark.core.base.AvgAbstractBenchmark;
 
 import static al.sankevich.placeholders.contenttypes.impl.DefaultContentTypes.JSON;
 

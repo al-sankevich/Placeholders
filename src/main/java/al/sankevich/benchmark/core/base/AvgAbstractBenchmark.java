@@ -1,4 +1,4 @@
-package al.sankevich.benchmark.core.benchmark.avg;
+package al.sankevich.benchmark.core.base;
 
 import al.sankevich.benchmark.core.engine.EngineProvider;
 import al.sankevich.benchmark.core.utils.FileUtils;

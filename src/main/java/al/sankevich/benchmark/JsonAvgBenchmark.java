@@ -1,8 +1,8 @@
 package al.sankevich.benchmark;
 
-import al.sankevich.benchmark.core.benchmark.avg.ext.JsonAvgAbstractBenchmark;
+import al.sankevich.benchmark.core.base.ext.JsonAvgAbstractBenchmark;
 import al.sankevich.benchmark.core.engine.ext.DefaultEngineProvider;
-import al.sankevich.benchmark.core.values.wrappable.json.JsonDefaultValuesProvider;
+import al.sankevich.benchmark.core.values.wrappable.JsonDefaultValuesProvider;
 
 import static al.sankevich.benchmark.core.Constants.DEFAULT_PROFILING;
 

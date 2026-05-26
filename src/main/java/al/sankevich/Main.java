@@ -306,6 +306,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
+        Context context = new Context();
         Mustache mustache = new DefaultMustacheFactory() {
             @Override
             public Reader getReader(String resourceName) {
@@ -314,7 +315,18 @@ public class Main {
             }
         }.compile("test-default.json");
         StringWriter writer = new StringWriter();
-        mustache.execute(writer, Map.of("placeholder", "placeholder")).flush();
+        mustache.execute(writer, context).flush();
         System.out.println(writer);
+    }
+
+    public static class Context {
+
+        public Function<String, String> br() {
+            return s -> new StringBuilder()
+                    .append('"')
+                    .append(s)
+                    .append('"')
+                    .toString();
+        }
     }
 }

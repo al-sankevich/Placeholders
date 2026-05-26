@@ -41,7 +41,6 @@ public class DefaultSourceProcessingEngine extends AbstractSourceProcessingEngin
         Set<String> skippablePlaceholdersSet = getSkippablePlaceholders(skippablePlaceholders);
 
         while (iterator.hasNext()) {
-
             Placeholder placeholder = iterator.get();
 
             processString(skippablePlaceholdersSet, iterator, placeholder, valuesProvider, type);
@@ -55,8 +54,17 @@ public class DefaultSourceProcessingEngine extends AbstractSourceProcessingEngin
     }
 
     private Set<String> getSkippablePlaceholders(final String... skippablePlaceholders) {
+        Set<String> defaultSkippablePlaceholders = config.getSkippablePlaceholders();
+
+        if (skippablePlaceholders.length == 0) {
+            return defaultSkippablePlaceholders;
+        }
+
         Set<String> skippablePlaceholdersSet = new HashSet<>(config.getSkippablePlaceholders());
-        skippablePlaceholdersSet.addAll(Set.of(skippablePlaceholders));
+        for (String skippablePlaceholder : skippablePlaceholders) {
+            skippablePlaceholdersSet.add(skippablePlaceholder);
+        }
+
         return skippablePlaceholdersSet;
     }
 
@@ -70,7 +78,6 @@ public class DefaultSourceProcessingEngine extends AbstractSourceProcessingEngin
         Set<String> skippablePlaceholdersSet = getSkippablePlaceholders(skippablePlaceholders);
 
         while (iterator.hasNext()) {
-
             Placeholder placeholder = iterator.get();
 
             if (placeholder.getPosition().length() == source.length()) {

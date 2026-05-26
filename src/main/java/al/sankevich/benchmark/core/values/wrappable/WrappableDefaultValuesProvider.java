@@ -2,9 +2,12 @@ package al.sankevich.benchmark.core.values.wrappable;
 
 import al.sankevich.benchmark.core.values.ValuesProvider;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public interface WrappableDefaultValuesProvider extends ValuesProvider, Supplier<Character> {
+
+    Map<String, String> map = Map.of("placeholder", "placeholder");
 
     @Override
     default Object apply(String s) {
