@@ -1,13 +1,12 @@
 package al.sankevich.benchmark.mustache.engine;
 
 import al.sankevich.benchmark.core.EngineProvider;
+import al.sankevich.benchmark.core.utils.FileUtils;
 import com.github.mustachejava.DefaultMustacheFactory;
 import com.github.mustachejava.MustacheFactory;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.charset.StandardCharsets;
+import java.io.StringReader;
 
 public interface DefaultEngineProvider extends EngineProvider<MustacheFactory> {
 
@@ -16,8 +15,7 @@ public interface DefaultEngineProvider extends EngineProvider<MustacheFactory> {
         return new DefaultMustacheFactory() {
             @Override
             public Reader getReader(String resourceName) {
-                InputStream is = getClass().getResourceAsStream("/mustache/" + resourceName);
-                return new InputStreamReader(is, StandardCharsets.UTF_8);
+                return new StringReader(FileUtils.loadFile("mustache/" + resourceName));
             }
         };
     }
