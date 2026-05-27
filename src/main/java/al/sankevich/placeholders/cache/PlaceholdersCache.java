@@ -3,16 +3,16 @@ package al.sankevich.placeholders.cache;
 import al.sankevich.placeholders.dtos.Placeholder;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Provides API for caching {@link Placeholder placeholders}.
  */
 public class PlaceholdersCache {
 
-    private static final Map<Integer, List<Placeholder>> PLACEHOLDERS_CACHE = new HashMap<>();
+    private static final Map<Integer, List<Placeholder>> PLACEHOLDERS_CACHE = new ConcurrentHashMap<>();
 
     /**
      * Checks if the {@code source}, defined by its {@code hash}, was already cached.
