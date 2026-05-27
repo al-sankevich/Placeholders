@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="JsonLibAvgBenchmark" type="Application" factoryName="Application" folderName="lib">
+  <configuration default="false" name="GcJsonMustacheAvgBenchmark" type="Application" factoryName="Application" folderName="mustache">
     <option name="MAIN_CLASS_NAME" value="org.openjdk.jmh.Main" />
     <module name="Placeholders" />
-    <option name="PROGRAM_PARAMETERS" value="al.sankevich.benchmark.DefaultJsonLibAvgBenchmark.check$ -rf json -rff results/custom-json.json" />
+    <option name="PROGRAM_PARAMETERS" value="al.sankevich.benchmark.GcJsonMustacheAvgBenchmark.check$ -rf json -rff results/mustache-json.json -prof gc" />
     <option name="WORKING_DIRECTORY" value="$MODULE_WORKING_DIR$" />
     <extension name="coverage">
       <pattern>
@@ -21,7 +21,7 @@
       </ENTRIES>
     </extension>
     <method v="2">
-      <option name="RunConfigurationTask" enabled="true" run_configuration_name="Build" run_configuration_type="MavenRunConfiguration" />
+      <option name="RunConfigurationTask" enabled="false" run_configuration_name="Build" run_configuration_type="MavenRunConfiguration" />
     </method>
   </configuration>
 </component>

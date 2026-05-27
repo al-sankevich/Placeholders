@@ -30,8 +30,8 @@ public abstract class AvgAbstractBenchmark implements AbstractBenchmark {
     @BenchmarkMode(Mode.AverageTime)
     @OutputTimeUnit(TimeUnit.NANOSECONDS)
     @Warmup(iterations = 5, time = 1)
-    @Measurement(iterations = 100, time = 1)
-    @Fork(1)
+    @Measurement(iterations = 10, time = 1)
+    @Fork(5)
     @Threads(1)
     @Override
     public void check(Blackhole blackhole) {
